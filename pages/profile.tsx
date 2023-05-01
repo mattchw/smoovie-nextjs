@@ -20,19 +20,20 @@ export async function getServerSideProps(context: NextPageContext) {
   };
 }
 
-export default function Home() {
+const Profile = () => {
   const { data: user } = useCurrentUser();
 
   return (
-    <>
-      <h1 className="text-4xl font-bold text-center">Hello World</h1>
-      <p className="text-white text-center">Welcome {user?.username} ({user?.email})</p>
+    <div>
+      <h1>Profile</h1>
+      <p>Welcome {user?.username} ({user?.email})</p>
       <button
         onClick={() => signOut()}
-        className="h-10 w-full bg-white"
       >
         Sign Out
       </button>
-    </>
-  )
-}
+    </div>
+  );
+};
+
+export default Profile;
