@@ -69,7 +69,7 @@ async function removeFavourite(req: NextApiRequest, res: NextApiResponse) {
       throw new Error('Invalid ID');
     }
 
-    const updatedFavouriteIds = without(currentUser.favouriteIds, movieId);
+    const updatedFavouriteIds = without(currentUser.favouriteIds, movieId as string);
 
     const updatedUser = await prismadb.user.update({
       where: {
