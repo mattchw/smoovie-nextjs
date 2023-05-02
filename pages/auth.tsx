@@ -1,11 +1,12 @@
+import { useCallback, useEffect, useState } from "react";
 import Input from "@/components/Input";
-import { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 const Auth = () => {
   const router = useRouter();
@@ -14,6 +15,14 @@ const Auth = () => {
   const [password, setPassword] = useState("");
 
   const [variant, setVariant] = useState("login")
+
+  const { data: currentUser } = useCurrentUser();
+
+  useEffect(() => {
+    if (currentUser) {
+      router.replace("/");
+    }
+  }, [currentUser, router]);
 
   const toggleVariant = useCallback(() => {
     setVariant((prev) => (prev === "login" ? "signup" : "login"));

@@ -9,6 +9,7 @@ import ItemList from "@/components/ItemList";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useTrending from "@/hooks/useTrending";
+import useFavourites from "@/hooks/useFavourites";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -28,20 +29,24 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const [trandingItem, setTrandingItem] = useState({} as any);
-  const { data } = useTrending();
+  const [trendingItem, setTrendingItem] = useState({} as any);
+  const { data: trending = [] } = useTrending();
+  const { data: favourites = [] } = useFavourites();
 
   useEffect(() => {
-    setTrandingItem(data?.results[Math.floor(Math.random() * data?.results.length - 1)]);
-  }, [data]);
+    if (trending?.results?.length > 0) {
+      setTrendingItem(trending?.results[Math.floor(Math.random() * trending?.results.length - 1)]);
+    }
+  }, [trending]);
 
   const { data: user } = useCurrentUser();
 
   return (
     <>
       <NavBar user={user} />
-      <Banner item={trandingItem} />
-      <ItemList title="Trending Now" items={data?.results} />
+      <Banner item={trendingItem} />
+      <ItemList title="Trending Now" items={trending?.results} />
+      {favourites?.length && <ItemList title="My Favourites" items={favourites} />}
     </>
   )
 }

@@ -3,6 +3,7 @@ import ItemCard from '@/components/ItemCard';
 interface ItemListProps {
   title: string;
   items: {
+    id: number;
     name: string;
     title: string;
     overview: string;

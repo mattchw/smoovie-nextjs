@@ -6,10 +6,13 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsPlay } from 'react-icons/bs';
 import { BiLike } from 'react-icons/bi';
 
+import FavouriteButton from '@/components/FavouriteButton';
+
 import { GENRES } from '@/constants/tmdb/genres';
 
 interface ItemCardProps {
   data: {
+    id: number;
     name: string;
     title: string;
     overview: string;
@@ -81,7 +84,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
             <div onClick={() => { }} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               <BsPlay className="text-black w-4 lg:w-6" />
             </div>
-            {/* <FavoriteButton movieId={data.id} /> */}
+            <FavouriteButton movieId={data.id} />
             <div onClick={() => { }} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
               <BsChevronDown className="text-white group-hover/item:text-neutral-300 w-4 lg:w-6" />
             </div>
