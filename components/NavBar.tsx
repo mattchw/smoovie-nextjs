@@ -6,9 +6,10 @@ import AccountMenu from "./AccountMenu";
 
 import { BsChevronDown } from "react-icons/bs";
 import { BsSearch, BsBell } from "react-icons/bs";
+import { User } from "@/types/user";
 
 interface NavBarProps {
-  user?: any;
+  user?: User;
 }
 
 const TOP_OFFSET = 66;
@@ -69,7 +70,11 @@ const NavBar: React.FC<NavBarProps> = ({
           </div>
           <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
             <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-              <img src="/images/avatar.jpg" alt="avatar" className="w-8 h-8 rounded-full object-cover" />
+              <img
+                src={user?.image || '/images/avatar.jpeg'}
+                alt="avatar"
+                className="w-8 h-8 rounded-full object-cover m-auto mt-1"
+              />
             </div>
             <BsChevronDown className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
             <AccountMenu visible={showAccountMenu} user={user} />
