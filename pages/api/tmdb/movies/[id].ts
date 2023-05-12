@@ -26,6 +26,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // call tmdb api /movie/{movie_id}
     const movie: TMDBMovie = await fetcher(`https://api.themoviedb.org/3/movie/${query.id}?api_key=${process.env.TMDB_API_KEY}`);
 
+    if (movie) {
+      // get videos
+      const videos = await fetcher(`https://api.themoviedb.org/3/movie/${query.id}/videos?api_key=${process.env.TMDB_API_KEY}`);
+      movie.videos = videos.results;
+    }
+
     return res.status(200).json(formatMovie(movie, prismaMovie));
   } catch (error) {
     console.log(error);

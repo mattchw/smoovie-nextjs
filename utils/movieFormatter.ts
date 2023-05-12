@@ -29,6 +29,7 @@ export function formatMovie(tmdbMovie: TMDBMovie, movie: PrismaMovie | null): Mo
     tagline: tmdbMovie.tagline,
     title: tmdbMovie.title,
     video: tmdbMovie.video,
+    videos: tmdbMovie.videos,
     vote_average: tmdbMovie.vote_average,
     vote_count: tmdbMovie.vote_count,
   }

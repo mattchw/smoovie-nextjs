@@ -9,8 +9,6 @@ interface PlayButtonProps {
 const PlayButton: React.FC<PlayButtonProps> = ({
   onClick
 }) => {
-  const router = useRouter();
-
   return (
     <button
       onClick={onClick}

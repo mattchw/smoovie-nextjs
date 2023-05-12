@@ -22,9 +22,13 @@ interface ItemCardProps {
     genre_ids: number[];
     release_date: string;
   };
+  onPlay: () => void;
 };
 
-const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
+const ItemCard: React.FC<ItemCardProps> = ({
+  data,
+  onPlay,
+}) => {
   const router = useRouter();
 
   return (
@@ -81,7 +85,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
           rounded-b-md
           ">
           <div className="flex flex-row items-center gap-3">
-            <div onClick={() => { }} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+            <div onClick={onPlay} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
               <BsPlay className="text-black w-4 lg:w-6" />
             </div>
             <FavouriteButton movieId={data.id} />

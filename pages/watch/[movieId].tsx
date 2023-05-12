@@ -3,6 +3,9 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 import useMovie from '@/hooks/useMovie';
 
+import LiteYouTubeEmbed from "react-lite-youtube-embed"
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css"
+
 const Watch = () => {
   const router = useRouter();
   const { movieId } = router.query;
@@ -17,7 +20,17 @@ const Watch = () => {
           <span className="font-light">Watching:</span> {data?.title}
         </p>
       </nav>
-      <video className="h-full w-full" autoPlay controls src={data?.videoPath}></video>
+      {data?.videoPath ?
+        <video className="h-full w-full" autoPlay controls src={data?.videoPath}></video> :
+        data?.videos?.length && data.videos[0].site === 'YouTube' ?
+          <LiteYouTubeEmbed
+            aspectHeight={8.5}
+            aspectWidth={16}
+            id={data.videos[0].key}
+            title="{video_title}"
+          /> :
+          <p className="text-white text-2xl font-bold text-center mt-20">No video available</p>
+      }
     </div>
   )
 }

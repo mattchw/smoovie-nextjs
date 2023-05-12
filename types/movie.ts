@@ -27,6 +27,7 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  videos?: TMDBVideo[];
 }
 
 export interface TMDBMovie {
@@ -52,9 +53,21 @@ export interface TMDBMovie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  videos?: TMDBVideo[];
 }
 
 export interface TMDBGenre {
   id: number;
   name: string;
+}
+
+export interface TMDBVideo {
+  id: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  key: string;
+  name: string;
+  site: string;
+  size: number;
+  type: string;
 }

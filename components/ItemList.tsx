@@ -1,4 +1,5 @@
 import ItemCard from '@/components/ItemCard';
+import { useRouter } from 'next/router';
 
 interface ItemListProps {
   title: string;
@@ -19,6 +20,7 @@ const ItemList: React.FC<ItemListProps> = ({
   title,
   items,
 }) => {
+  const router = useRouter();
   return (
     <div className="px-4 md:px-12 mt-4 space-y-8">
       <div>
@@ -29,7 +31,7 @@ const ItemList: React.FC<ItemListProps> = ({
               <div className="bg-zinc-800 p-2 lg:p-4 rounded-md w-full h-[12vw]" />
             </div>
           ) : items?.map((item) => (
-            <ItemCard key={item.name} data={item} />
+            <ItemCard key={item.name} data={item} onPlay={() => router.push(`/watch/${item?.id}`)} />
           ))}
         </div>
       </div>
