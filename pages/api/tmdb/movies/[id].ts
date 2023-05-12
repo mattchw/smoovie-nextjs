@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import fetcher from '@/libs/fetcher';
 import serverAuth from '@/libs/serverAuth';
+import { TMDBMovie } from '@/types/movie';
+import prismadb from '@/libs/prismadb';
+import { formatMovie } from '@/utils/movieFormatter';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -13,10 +16,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await serverAuth(req, res);
 
-    // call tmdb api /movie/{movie_id}
-    const movie = await fetcher(`https://api.themoviedb.org/3/movie/${query.id}?api_key=${process.env.TMDB_API_KEY}`);
+    // check prismadb for movie 
+    const prismaMovie = await prismadb.movie.findFirst({
+      where: {
+        tmdbId: Number(query.id)
+      }
+    });
 
-    return res.status(200).json(movie);
+    // call tmdb api /movie/{movie_id}
+    const movie: TMDBMovie = await fetcher(`https://api.themoviedb.org/3/movie/${query.id}?api_key=${process.env.TMDB_API_KEY}`);
+
+    return res.status(200).json(formatMovie(movie, prismaMovie));
   } catch (error) {
     console.log(error);
     return res.status(500).end();

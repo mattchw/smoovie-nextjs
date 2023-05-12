@@ -64,6 +64,7 @@ model VerificationRequest {
 
 model Movie {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  tmdbId      Int?     @unique
   title       String
   description String
   image       String
