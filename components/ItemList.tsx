@@ -31,7 +31,7 @@ const ItemList: React.FC<ItemListProps> = ({
               <div className="bg-zinc-800 p-2 lg:p-4 rounded-md w-full h-[12vw]" />
             </div>
           ) : items?.map((item) => (
-            <ItemCard key={item.name} data={item} onPlay={() => router.push(`/watch/${item?.id}`)} />
+            <ItemCard key={item.id} data={item} onPlay={() => router.push(`/watch/${item?.id}`)} />
           ))}
         </div>
       </div>
